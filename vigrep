@@ -1,8 +1,8 @@
 searchString=$1
 shift
-#filesToEdit=`grep -sIlZ '.' -e $searchString $* | xargs -0 echo`
 filesToEdit=`grep -sIlZ -e $searchString $* | xargs -0 echo`
-echo $searchString
-echo $filesToEdit
+
+#echo $searchString
+#echo $filesToEdit
 
 gvim  $filesToEdit
