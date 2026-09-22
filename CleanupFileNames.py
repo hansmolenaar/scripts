@@ -33,7 +33,8 @@ def main():
         for oldName in f.read().splitlines():
             newName = transform(oldName)
             if (oldName != newName):
-               sys.stdout.write(oldName + " -> " + newName + "\n"  )
+               #sys.stdout.write(oldName + " -> " + newName + "\n"  )
+               sys.stdout.write("mv " +  oldName + "  " + newName + "\n"  )
 
 if __name__ == '__main__':
     main()

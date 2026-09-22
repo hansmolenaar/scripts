@@ -16,9 +16,11 @@ def replaceOddCharacters(name):
     retval = re.sub("-" , "-", retval)
     retval = re.sub("\\.＊" , "", retval)
     retval = re.sub("＊" , "", retval)
-    retval = re.sub("＂" , "", retval)
+    retval = re.sub("＂" , "\"", retval)
     retval = re.sub("：" , ":", retval)
     retval = re.sub("：" , ":", retval)
+    retval = re.sub("–" , "-", retval)
+    retval = re.sub("~" , "-", retval)
     retval = re.sub("‎" , " ", retval)
     return retval
 

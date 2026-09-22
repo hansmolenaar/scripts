@@ -8,7 +8,7 @@ import MyStringLib
 from MyStringLib import removeLeadinngBlanks
 from MyStringLib import removeTrailingBlanks
 from MyStringLib import removeMultipleBlanks
-#from MyStringLib import replaceOddCharacters
+from MyStringLib import replaceOddCharacters
 from MyStringLib import stripLeadingDoubleQuote
 from MyStringLib import stripTrailingDoubleQuote
 
@@ -32,11 +32,6 @@ def checkDoubleQuotes(name):
 def markDoubleQuotes(name):
     return re.sub("\"" , "@", name)
 
-def swapTitleArtist(name):
-    checkSingleHyphen(name)
-    parts = name.split('-')
-    return parts[1] + " - " + parts[0]
-
 def cleanYear(name):
     retval =  name
     retval = re.sub("\\{1965}" , " (1965)", retval)
@@ -45,17 +40,6 @@ def cleanYear(name):
     retval = re.sub("\\{1968}" , " (1968)", retval)
     retval = re.sub("\\{1969}" , " (1969)", retval)
     retval = re.sub("\\( 19" , " (19", retval)
-    return retval
-
-def replaceOddCharacters(name):
-    retval =  name
-    retval = re.sub("-" , "-", retval)
-    retval = re.sub("\\.＊" , "", retval)
-    retval = re.sub("＊" , "", retval)
-    retval = re.sub("＂" , "", retval)
-    retval = re.sub("：" , "", retval)
-    retval = re.sub("：" , "", retval)
-    retval = re.sub("‎" , " ", retval)
     return retval
 
 def replaceDotDotMp3(name):
@@ -70,7 +54,6 @@ def markMetaInfo(name):
 
 def transform(name):
     retval = name
-    #retval = checkSingleHyphen(retval)
     retval, hasLeadingDoubleQuote = stripLeadingDoubleQuote(retval)
     retval, hasTrailingDoubleQuote = stripTrailingDoubleQuote(retval)
     #retval = checkDoubleQuotes(retval)
@@ -79,7 +62,6 @@ def transform(name):
     retval = replaceDotDotMp3(retval)
     retval = stripExtension(retval)
     #retval = removeTrackNumber(retval)
-    #retval = swapTitleArtist(retval)
     retval = removeLeadinngBlanks(retval)
     retval = removeTrailingBlanks(retval)
     retval = cleanYear(retval)
