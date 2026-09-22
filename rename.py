@@ -1,28 +1,20 @@
 #!/usr/bin/env python3
 import sys
 import re
-
+import MyStringLib
 
 # Generate file list with ls -1 -Q > list.txt
 
-def removeLeadinngBlanks(name):
-    return re.sub("^ +" , "", name)
-
-def removeTrailingBlanks(name):
-    return re.sub(" +$" , "", name)
-
-def replaceMultipleBlanks(name):
-    return re.sub("  +" , " ", name)
+from MyStringLib import removeLeadinngBlanks
+from MyStringLib import removeTrailingBlanks
+from MyStringLib import removeMultipleBlanks
+#from MyStringLib import replaceOddCharacters
+from MyStringLib import stripLeadingDoubleQuote
+from MyStringLib import stripTrailingDoubleQuote
 
 def removeTrackNumber(name):
     retval = re.sub("\\d+\\." , "", name)
     return retval
-
-def stripLeadingDoubleQuote(name):
-    return re.sub("^\"" , "", name)
-
-def stripTrailingDoubleQuote(name):
-    return re.sub("\"$" , "", name)
 
 def stripExtension(name):
     return re.sub(".mp3" , "", name)
@@ -79,8 +71,8 @@ def markMetaInfo(name):
 def transform(name):
     retval = name
     #retval = checkSingleHyphen(retval)
-    retval = stripLeadingDoubleQuote(retval)
-    retval = stripTrailingDoubleQuote(retval)
+    retval, hasLeadingDoubleQuote = stripLeadingDoubleQuote(retval)
+    retval, hasTrailingDoubleQuote = stripTrailingDoubleQuote(retval)
     #retval = checkDoubleQuotes(retval)
     retval = markNoHyphen(retval)
     #retval = markDoubleQuotes(retval)
@@ -92,9 +84,15 @@ def transform(name):
     retval = removeTrailingBlanks(retval)
     retval = cleanYear(retval)
     retval = replaceOddCharacters(retval)
-    retval = replaceMultipleBlanks(retval)
+    retval = removeMultipleBlanks(retval)
     #retval = markMetaInfo(retval)
-    return "\"" + retval + ".mp3\""
+
+    retval = retval + ".mp3"
+    if hasLeadingDoubleQuote:
+       retval = "\"" + retval
+    if hasTrailingDoubleQuote:
+      retval = retval + "\""
+    return retval;
     
 def main():
     with open('list.txt') as f:
