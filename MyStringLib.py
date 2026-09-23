@@ -22,6 +22,22 @@ def replaceOddCharacters(name):
     retval = re.sub("–" , "-", retval)
     retval = re.sub("~" , "-", retval)
     retval = re.sub("‎" , " ", retval)
+
+    retval = re.sub("⧸" , "/", retval)
+    retval = re.sub("？" , "?", retval)
+    retval = re.sub("｜" , "|", retval)
+    retval = re.sub("•" , "*", retval)
+    retval = re.sub("´" , "'", retval)
+    retval = re.sub("’" , "'", retval)
+    retval = re.sub("º" , "o", retval)
+    retval = re.sub("ß" , "ss", retval)
+
+    ignore = [220, 225, 228, 231, 232, 233, 237, 241,  246, 252]
+    for c in retval:
+       ordc = ord(c)
+       if (ordc > 127) and not (ordc in ignore):
+         print(str(c) + " = " + str(ord(c)) +  " in " + retval)
+
     return retval
 
 def stripLeadingDoubleQuote(name):
